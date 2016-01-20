@@ -1,0 +1,7 @@
+TEST PROJECT :
+create a guestbook in PHP.
+with the display of entries,
+form to add new entries including comments, name and email.
+and a button to delete entries
+(no security needed to see the button - anyone could delete an entry).
+It should have some reasonable security to block spam bots but no captcha.

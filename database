@@ -1,0 +1,19 @@
+
+create database guestbook_db;
+USE `guestbook_db`;
+
+CREATE TABLE `entries_tbl` (
+  `id` INTEGER(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) COLLATE latin1_swedish_ci NOT NULL,
+  `email` VARCHAR(200) COLLATE latin1_swedish_ci NOT NULL,
+  `comments` TEXT COLLATE latin1_swedish_ci NOT NULL,
+  PRIMARY KEY USING BTREE (`id`) COMMENT '',
+  UNIQUE INDEX `id` USING BTREE (`id`) COMMENT ''
+)ENGINE=InnoDB
+AUTO_INCREMENT=18 AVG_ROW_LENGTH=1092 CHARACTER SET 'latin1' COLLATE 'latin1_swedish_ci'
+COMMENT=''
+;
+
+create user 'guestbook_user'@'localhost' IDENTIFIED BY '123';
+GRANT ALL ON guestbook_db.* TO 'guestbook_user'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'guestbook_user'@'%' IDENTIFIED BY '123' WITH GRANT OPTION;

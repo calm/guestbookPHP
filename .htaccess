@@ -1,0 +1,120 @@
+	RewriteEngine On
+    RewriteBase /
+
+	RewriteCond %{REQUEST_URI} !(\.css|\.js|\.png|\.jpg|\.gif|\.txt)$ [NC]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+
+
+		RewriteCond %{HTTP:HTTP_VIA}      !^$ [OR]
+		RewriteCond %{HTTP:HTTP_X_FORWARDED_FOR}      !^$ [OR]
+		RewriteCond %{HTTP:HTTP_FORWARDED_FOR}      !^$ [OR]
+		RewriteCond %{HTTP:HTTP_X_FORWARDED}      !^$ [OR]
+		RewriteCond %{HTTP:HTTP_FORWARDED}      !^$ [OR]
+		RewriteCond %{HTTP:HTTP_CLIENT_IP}      !^$ [OR]
+		RewriteCond %{HTTP:HTTP_FORWARDED_FOR_IP}      !^$ [OR]
+		RewriteCond %{HTTP:VIA}      !^$ [OR]
+		RewriteCond %{HTTP:X_FORWARDED_FOR}      !^$ [OR]
+		RewriteCond %{HTTP:FORWARDED_FOR}      !^$ [OR]
+		RewriteCond %{HTTP:X_FORWARDED}      !^$ [OR]
+		RewriteCond %{HTTP:FORWARDED}      !^$ [OR]
+		RewriteCond %{HTTP:CLIENT_IP}      !^$ [OR]
+		RewriteCond %{HTTP:FORWARDED_FOR_IP}      !^$ [OR]
+		RewriteCond %{HTTP:HTTP_PROXY_CONNECTION}      !^$
+		RewriteRule ^(.*)$ - [F]
+
+		#Block Spam bots
+
+		RewriteEngine On
+
+		RewriteBase /
+
+		RewriteCond %{QUERY_STRING} ("|%22).*(<|>|%3) [NC,OR]
+
+		RewriteCond %{QUERY_STRING} (javascript:).*(;) [NC,OR]
+
+		RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3) [NC,OR]
+
+		RewriteCond %{QUERY_STRING} (|../|`|='$|=%27$) [NC,OR]
+
+		RewriteCond %{QUERY_STRING} (;|'|"|%22).*(union|select|insert|drop|update|md5|benchmark|or|and|if) [NC,OR]
+
+		RewriteCond %{QUERY_STRING} (base64_encode|localhost|mosconfig) [NC,OR]
+
+		RewriteCond %{QUERY_STRING} (boot.ini|echo.*kae|etc/passwd) [NC,OR]
+
+		RewriteCond %{QUERY_STRING} (GLOBALS|REQUEST)(=|[|%) [NC]
+
+		RewriteRule .* - [F]
+
+		RewriteCond %{HTTP_HOST} !^(127.0.0.0|localhost) [NC]
+
+		RewriteCond %{HTTP_USER_AGENT} (<|>|'|$x0E|%0A|%0D|%27|%3C|%3E|%00|@$x|!susie|_irc|_works|+select+|+union+|<?|1,1,1,|3gse|4all|4anything|5.1; xv6875)|59.64.153.|85.17.|88.0.106.|98|a_browser|a1 site|abac|abach|abby|aberja|abilon|abont|abot|accept|access|accoo|accoon|aceftp|acme|active|address|adopt|adress|advisor|agent|ahead|aihit|aipbot|alarm|albert|alek|alexa toolbar; (r1 1.5)|alltop|alma|alot|alpha|america online browser 1.1|amfi|amfibi|anal|andit|anon|ansearch|answer|answerbus|answerchase|antivirx|apollo|appie|arach|archive|arian|aboutoil|asps|aster|atari|atlocal|atom|atrax|atrop|attrib|autoh|autohot|av fetch|avsearch|axod|axon|baboom|baby|back|baid|bali|bandit|barry|basichttp|batch|bdfetch|beat|beaut|become|bee|beij|betabot|biglotron|bilgi|binlar|bison|bitacle|bitly|blaiz|blitz|blogl|blogscope|blogzice|bloob|blow|bord|bond|boris|bost|bot.ara|botje|botw|bpimage|brand|brok|broth|browseabit|browsex|bruin|bsalsa|bsdseek|built|bulls|bumble|bunny|busca|busi|buy|bwh3|cafek|cafi|camel|cand|captu|casper|catch|ccbot|ccubee|cd34|ceg|cfnetwork|cgichk|cha0s|chang|chaos|char|char(|chase x|check_http|checker|checkonly|checkprivacy|chek|chill|chttpclient|cipinet|cisco|cita|citeseer|clam|claria|claw|cloak|clshttp|clush|coast|cmsworldmap|code.com|cogent|coldfusion|coll|collect|comb|combine|commentreader|common|comodo|compan|compatible-|conc|conduc|contact|control|contype|conv|cool|copi|copy|coral|corn|cosmos|costa|cowbot|cr4nk|craft|cralwer|crank|crap|crawler0|crazy|cres|cs-cz|cshttp|cuill|CURI|curl|curry|custo|cute|cyber|cz3|czx|daily|dalvik|daobot|dark|darwin|data|daten|dcbot|dcs|dds explorer|deep|deps|detect|dex|diam|diavol|diibot|dillo|ding|disc|disp|ditto|dlc|doco|dotbot|drag|drec|dsdl|dsok|dts|duck|dumb|eag|earn|earthcom|easydl|ebin|echo|edco|egoto|elnsb5|email|emer|empas|encyclo|enfi|enhan|enterprise_search|envolk|erck|erocr|eventax|evere|evil|ewh|exac|exploit|expre|extra|eyen|fang|fast|fastbug|faxo|fdse|feed24|feeddisc|feedfinder|feedhub|fetch|filan|fileboo|fimap|find|firebat|firedownload/1.2pre firefox/3.6|firefox/0|firs|flam|flash|flexum|flicky|flip|fly|focus|fooky|forum|forv|fost|foto|foun|fount|foxy/1;|free|friend|frontpage|fuck|fuer|futile|fyber|gais|galbot|gbpl|gecko/2001|gecko/2002|gecko/2006|gecko/2009042316|gener|geni|geo|geona|geth|getr|getw|ggl|gira|gluc|gnome|go!zilla|goforit|goldfire|gonzo|google wireless|gosearch|got-it|gozilla|grab|graf|greg|grub|grup|gsa-cra|gsearch|gt::www|guidebot|guruji|gyps|haha|hailo|harv|hash|hatena|hax|head|helm|herit|heritrix|hgre|hippo|hloader|hmse|hmview|holm|holy|hotbar 4.4.5.0|hpprint|hrefs|httpclient|httpconnect|httplib|httrack|human|huron|hverify|hybrid|hyper|ia_archiver|iaskspi|ibm evv|iccra|ichiro|icopy|ics)|ida|ie/5.0|ieauto|iempt|iexplore.exe|ilium|ilse|iltrov|indexer|indy|ineturl|infonav|innerpr|inspect|insuran|intellig|interget|internet_explorer|internetx|intraf|ip2|ipsel|irlbot|isc_sys|isilo|isrccrawler|isspi|jady|jaka|jam|jenn|jet|jiro|jobo|joc|jupit|just|jyx|jyxo|kash|kazo|kbee|kenjin|kernel|keywo|kfsw|kkma|kmc|know|kosmix|krae|krug|ksibot|ktxn|kum|labs|lanshan|lapo|larbin|leech|lets|lexi|lexxe|libby|libcrawl|libcurl|libfetch|libweb|light|linc|lingue|linkcheck|linklint|linkman|lint|list|litefeeds|livedoor|livejournal|liveup|lmq|loader|locu|london|lone|loop|lork|lth_|lwp|mac_f|magi|magp|mail.ru|main|majest|mam|mama|mana|marketwire|masc|mass|mata|mvi|mcbot|mecha|mechanize|metadata|metalogger|metaspin|metauri|mete|mib/2.2|microsoft.url|microsoft_internet_explorer|mido|miggi|miix|mindjet|mindman|miner|mips|mira|mire|miss|mist|mizz|mj12|mlbot|mlm|mnog|moge|moje|mooz|more|mouse|mozdex) [NC]
+
+		RewriteRule .* - [G]
+
+		RewriteCond %{HTTP_USER_AGENT} (mozilla/0|mozilla/1|mozilla/4.61 [en]|mozilla/firefox|mpf|msie 2|msie 3|msie 4|msie 5|msie 6.0-|msie 6.0b|msie 7.0a1;|msie 7.0b;|msie6xpv1|msiecrawler|msnbot-media|msnbot-products|msnptc|msproxy|msrbot|musc|mvac|mwm|my_age|myapp|mydog|myeng|myie2|mysearch|myurl|nag|name|naver|navr|near|netants|netcach|netcrawl|netfront|netinfo|netmech|netsp|netx|netz|neural|neut|newsbreak|newsgatorinbox|newsrob|newt|next|ng-s|ng/2|nice|nikto|nimb|ninja|ninte|nog|noko|nomad|norb|note|npbot|nuse|nutch|nutex|nwsp|obje|ocel|octo|odi3|oegp|offby|offline|omea|omg|omhttp|onfo|onyx|openf|openssl|openu|opera 2|opera 3|opera 4|opera 5|opera 6|opera 7|orac|orbit|oreg|osis|our|outf|owl|p3p_|page2rss|pagefet|pansci|parser|patw|pavu|pb2pb|pcbrow|pear|peer|pepe|perfect|perl|petit|phoenix/0.|phras|picalo|piff|pig|pingd|pipe|pirs|plag|planet|plant|platform|playstation|plesk|pluck|plukkie|poe-com|poirot|pomp|post|postrank|powerset|preload|press|privoxy|probe|program_shareware|protect|protocol|prowl|proxie|proxy|psbot|pubsub|puf|pulse|punit|purebot|purity|pyq|pyth|query|quest|qweer|radian|rambler|ramp|rapid|rawdog|rawgrunt|reap|reeder|refresh|reget|relevare|repo|requ|request|rese|retrieve|rip|rma|roboz|rocket|rogue|rpt-http|rsscache|ruby|ruff|rufus|rv:0.9.7)|salt|sample|sauger|savvy|sbcyds|sbider|sblog|sbp|scagent|scan|scej_|sched|schizo|schlong|schmo|scorp|scott|scout|scrawl|screen|screenshot|script|seamonkey/1.5a|search17|searchbot|searchme|sega|semto|sensis|seop|seopro|sept|sezn|seznam|share|sharp|shaz|shell|shelo|sherl|shim|shopwiki|silurian|simple|simplepie|siph|sitekiosk|sitescan|sitevigil|sitex|skam|skimp|skygrid|sledink|sleip|slide|sly|smag|smurf|snag|snapbot|snapshot|snif|snip|snoop|sock|socsci|sogou|sohu|solr|some|soso|spad|span|spbot|speed|sphere|spin|sproose|spurl|sputnik|spyder|squi|sqwid|sqworm|ssm_ag|stack|stamp|statbot|state|steel|stilo|strateg|stress|strip|style|subot|such|suck|sume|sunos 5.7|sunrise|superbot|superbro|supervi|surf4me|surfbot|survey|susi|suza|suzu|sweep|swish|sygol|synapse|sync2it|systems|szukacz|tagger|tagoo|tagyu|take|talkro|tamu|tandem|tarantula|tbot|tcf|tcs/1|teamsoft|tecomi|teesoft|teleport|telesoft|tencent|terrawiz|test|texnut|thomas|tiehttp|timebot|timely|tipp|tiscali|titan|tmcrawler|tmhtload|tocrawl|todobr|tongco|toolbar; (r1|topic|topyx|torrent|track|translate|traveler|treeview|tricus|trivia|trivial|true|tunnel|turing|turnitin|tutorgig|twat|tweak|twice|tygo|ubee|uchoo|ultraseek|unavail|unf|universal|unknown|upg1|urlbase|urllib|urly|user-agent:|useragent|usyd|vagabo|valet|vamp|vci|veri~li|verif|versus|via|vikspider|virtual|visual|void|voyager|vsyn|w0000t|w3search|walhello|walker|wand|waol|watch|wavefire|wbdbot|weather|web.ima|web2mal|webarchive|webbot|webcat|webcor|webcorp|webcrawl|webdat|webdup|webgo|webind|webis|webitpr|weblea|webmin|webmoney|webp|webql|webrobot|webster|websurf|webtre|webvac|webzip|wells|wep_s|wget|whiz|widow|win67|windows-rss|windows 2000|windows 3|windows 95|windows 98|windows ce|windows me|winht|winodws|wish|wizz|worio|works|world|worth|wwwc|wwwo|wwwster|xaldon|xbot|xenu|xirq|y!tunnel|yacy|yahoo-mmaudvid|yahooseeker|yahooysmcm|yamm|yand|yandex|yang|yoono|yori|yotta|yplus |ytunnel|zade|zagre|zeal|zebot|zerx|zeus|zhuaxia|zipcode|zixy|zmao|zmeu|zune) [NC]
+
+		RewriteRule .* - [G]
+
+		#rix - Gtmetrix - this is the bot that also GTmetrix uses so when you test your website speed keep in mind to remove it.
+		#mediapartners - Google Adsense
+
+		# 2013 UA BLACKLIST [3/3] (pentag0)
+
+		RewriteCond %{HTTP_USER_AGENT} (black hole|titan|webstripper|netmechanic|cherrypicker|emailcollector|emailsiphon|webbandit|emailwolf|extractorpro|copyrightcheck|crescent|wget|sitesnagger|prowebwalker|cheesebot|teleport|teleportpro|miixpc|telesoft|website quester|webzip|moget/2.1|webzip/4.0|websauger|webcopier|netants|mister pix|webauto|thenomad|www-collector-e|rma|libweb/clshttp|asterias|httplib|turingos|spanner|infonavirobot|harvest/1.5|bullseye/1.0|mozilla/4.0 (compatible; bullseye; windows 95)|crescent internet toolpak http ole control v.1.0|cherrypickerse/1.0|cherrypicker /1.0|webbandit/3.50|nicerspro|microsoft url control - 5.01.4511|dittospyder|foobot|webmasterworldforumbot|spankbot|botalot|lwp-trivial/1.34|lwp-trivial|wget/1.6|bunnyslippers|microsoft url control - 6.00.8169|urly warning|wget/1.5.3|linkwalker|cosmos|moget|hloader|humanlinks|linkextractorpro|offline explorer|mata hari|lexibot|web image collector|the intraformant|true_robot/1.0|true_robot|blowfish/1.0|jennybot|miixpc/4.2|builtbottough|propowerbot/2.14|backdoorbot/1.0|tocrawl/urldispatcher|webenhancer|tighttwatbot|suzuran|vci webviewer vci webviewer win32|vci|szukacz/1.4|queryn metasearch|openfind data gathere|openfind|xenu's link sleuth 1.1c|xenu's|zeus|repomonkey bait & tackle/v1.01|repomonkey|zeus 32297 webster pro v2.9 win32|webster pro|erocrawler|linkscan/8.1a unix|keyword density/0.9|kenjin spider|cegbfeieh) [NC]
+
+		RewriteRule .* - [G]
+
+		# [REQUEST STRINGS]
+
+		RedirectMatch 403 (https?|ftp|php)://
+
+		RedirectMatch 403 /(https?|ima|ucp)/
+
+		RedirectMatch 403 /(Permanent|Better)$
+
+		RedirectMatch 403 (='|=%27|/'/?|).css()$
+
+		RedirectMatch 403 (,|)+|/,/|{0}|(/(|...|+++|||"")
+
+		RedirectMatch 403 .(cgi|asp|aspx|cfg|dll|exe|jsp|mdb|sql|ini|rar)$
+
+		RedirectMatch 403 /(contac|fpw|install|pingserver|register).php$
+
+		RedirectMatch 403 (base64|crossdomain|localhost|wwwroot|e107_)
+
+		RedirectMatch 403 (eval(|_vti_|(null)|echo.*kae|config.xml)
+
+		RedirectMatch 403 .well-known/host-meta
+
+		RedirectMatch 403 /function.array-rand
+
+		RedirectMatch 403 );$(this).html(
+
+		RedirectMatch 403 proc/self/environ
+
+		RedirectMatch 403 msnbot.htm)._
+
+		RedirectMatch 403 /ref.outcontrol
+
+		RedirectMatch 403 com_cropimage
+
+		RedirectMatch 403 indonesia.htm
+
+		RedirectMatch 403 {$itemURL}
+
+		RedirectMatch 403 function()
+
+		RedirectMatch 403 labels.rdf
+
+		RedirectMatch 403 /playing.php
+
+		RedirectMatch 403 muieblackcat
+
+		# 5G:[REQUEST METHOD]
+
+		RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+
+		RewriteRule .* - [F]
